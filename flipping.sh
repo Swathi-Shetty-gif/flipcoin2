@@ -1,34 +1,38 @@
 #!/bin/bash -x
-read -p "number of times coin to be flipped" num
-head=1
-tail=0
-headcount=0
-tailcount=0
-for ((i=0;i<$num;i++))
+HEAD=1
+TAIL=0
+headhead=0
+tailtail=0
+headtail=0
+tailhead=0
+declare -A dic
+for ((i=0;i<20;i++))
 do
-	randomcheck=$((RANDOM%2))
-	case $randomcheck in
- 
-	$head)
-		((headcount++))
-		;;
-	$tail)
-		((tailcount++))	
-		;;
+var=$((RANDOM%2))
+var1=$((RANDOM%2))
+double=$var$var1
+case $double in
+	$HEAD$HEAD)
+			((headhead++));;
+	$HEAD$TAIL)
+			((headtail++));;
+	$TAIL$HEAD)
+			((tailhead++));;
+	$TAIL$TAIL)
+			((tailtail++));;
 esac
 done
-echo "count of head is " $headcount
-echo "count of tail is " $tailcount
-declare -A dictionary
-dictionary[((head))]=$headcount
-dictionary[((tail))]=$tailcount
-echo ${dictionary[@]}
-
-resulthead=$(($headcount*100))
-resultheadper=$(($resulthead/$num))
-
-resulttail=$(($tailcount*100))
-resulttailper=$(($resulttail/$num))
-
-echo "percentage of head " $resultheadper
-echo "percentage of tail " $resulttailper
+dic[HT]=$headtail
+dic[TT]=$tailtail
+dic[TH]=$tailhead
+dic[HH]=$headhead
+echo ${dic[@]}
+echo ${!dic[@]}
+hper=`echo $headhead | awk '{print ($1/20)*100}'`
+echo "the HH percentage is $hper%"
+tper=`echo $tailtail | awk '{print ($1/20)*100}'`
+echo "the TT percentage is $tper%"
+thper=`echo $tailhead | awk '{print ($1/20)*100}'`
+echo "the TH percentage is $thper%"
+htper=`echo $headtail | awk '{print ($1/20)*100}'`
+echo "the HT percentage is $htper%"
