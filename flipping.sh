@@ -8,5 +8,5 @@ if [ $randomCheck -eq 0 ]
 then
 	echo "flipped coin is head"
 else
-	echo "flipped coin is tail"
+	echo "flipped coin is tail "
 fi
